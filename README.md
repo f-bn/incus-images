@@ -14,6 +14,8 @@ The following images are known to work using these manifests, other distribution
 | :--------------| :---------| :---------| :---------| :---------------|
 | Ubuntu         | `jammy`   | `default` | ✅        | ✅              |
 
+*Note: image compatibility with LXD is not guaranteed*
+
 #### Requirements
 
 * Incus >= 0.3
