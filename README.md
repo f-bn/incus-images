@@ -73,4 +73,5 @@ Then, build the image using `distrobuilder`, you have multiple options :
 ### References
 
 * Linux Containers: https://linuxcontainers.org/ 
-* Distrobuilder: https://linuxcontainers.org/distrobuilder/introduction/
+* Incus: https://github.com/lxc/incus
+* Distrobuilder: https://github.com/lxc/distrobuilder
