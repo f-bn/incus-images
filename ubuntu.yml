@@ -95,6 +95,8 @@ actions:
     action: |-
       #!/bin/sh
       set -eux
+      umount -l /etc/resolv.conf || true
+      rm /etc/resolv.conf
       ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
   # Configure timezone
