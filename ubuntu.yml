@@ -205,7 +205,7 @@ files:
     - vm
 
   # Fix behavior where initramfs will search for an non-existing swap partition on boot (the kernel will take more than 30sec to boot...)
-  # Caused by building images on a machine with swap (i.e LXD host)
+  # Caused by building images on a machine with swap (i.e Incus host)
   - path: /etc/initramfs-tools/conf.d/resume
     generator: dump
     content: |-
