@@ -13,18 +13,21 @@ The following images are known to work using these manifests, other distribution
 | Distribution   | Release   | Variants  | Container | Virtual machine |
 | :--------------| :---------| :---------| :---------| :---------------|
 | Ubuntu         | `jammy`   | `default` | ✅        | ✅              |
+| Talos Linux    | -         | `default` | ❌        | ✅              |
 
 *Note: image compatibility with LXD is not guaranteed*
 
 #### Requirements
 
-* Incus >= 0.3
+* Incus >= 0.5
 * Distrobuilder >= 3.0
 * System dependencies
-  - *qemu-utils* (qemu-img) 
-  - *debootstrap*
-  - *btrfs-progs*
-  - *rsync*
+  - `qemu-img`
+  - `debootstrap`
+  - `btrfs-progs`
+  - `rsync`
+  - `tar`
+  - `xz`
 
 ### How to build these images ?
 
@@ -72,8 +75,64 @@ Then, build the image using `distrobuilder`, you have multiple options :
   distrobuilder build-incus ubuntu.yml --cache-dir=/var/cache/distrobuilder/build
   ```
 
+### How to build a Talos Linux image ?
+
+In order to build an Incus-compatible [Talos Linux](https://www.talos.dev/) image (unified tarball format), a script is available to automate the build steps from official Talos Linux `nocloud` raw images.
+
+```shell
+$ ./bin/build-talos-image.sh
+* Downloading Talos Linux image (v1.6.5)...
+* Extracting image...
+* Convert image to QCOW2 format...
+    (100.00/100%)
+* Create Incus unified tarball...
+* Cleaning up...
+```
+
+You can also specify the Talos Linux version (using GitHub tag):
+
+```shell
+$ ./bin/build-talos-image.sh v1.7.0-alpha.0
+```
+
+Once the build is done, you can find a `talos-<version>.tar.zst` archive that you can import into Incus:
+```shell
+$ ls -lh
+total 78M
+-rw-r--r-- 1 user group 1.1K Feb 22 12:49 LICENSE
+-rw-r--r-- 1 user group 2.9K Feb 25 12:55 README.md
+drwxr-xr-x 2 user group 4.0K Feb 25 12:33 bin
+drwxr-xr-x 8 user group 4.0K Feb 22 12:49 config
+-rw-r--r-- 1 user group  78M Feb 25 12:55 talos-v1.6.5.tar.zst
+-rw-r--r-- 1 user group 6.0K Feb 22 13:00 ubuntu.yml
+
+$ incus image import talos-v1.6.5.tar.zst --alias talos/1.6.5
+$ incus image info talos/1.6.5
+Fingerprint: <fingerpint>
+Size: 77.82MiB
+Architecture: x86_64
+Type: virtual-machine
+Public: no
+Timestamps:
+    Created: 2024/02/25 12:21 UTC
+    Uploaded: 2024/02/25 12:21 UTC
+    Expires: never
+    Last used: 0001/01/01 00:00 UTC
+Properties:
+    description: Talos Linux 1.6.5
+    os: Talos Linux
+    release: 1.6.5
+Aliases:
+    - talos/1.6.5
+Cached: no
+Auto update: disabled
+Profiles:
+    - default
+```
+
 ### References
 
 * Linux Containers: https://linuxcontainers.org/ 
 * Incus: https://github.com/lxc/incus
 * Distrobuilder: https://github.com/lxc/distrobuilder
+* Talos Linux: https://www.talos.dev/
