@@ -33,10 +33,17 @@ The following images are known to work using these manifests, other distribution
 Firstly, install `distrobuilder` using `snap` :
 
 ```shell
-snap install distrobuilder --classic [--edge]
+$ snap install distrobuilder --classic [--edge]
 ```
 
-Then, build the image using `distrobuilder`, you have multiple options :
+If you don't want to use snap, I also have created a [Docker image](https://github.com/f-bn/containers-images/tree/main/distrobuilder) for running Distrobuilder inside a container:
+
+```shell
+$ docker pull ghcr.io/f-bn/distrobuilder:edge
+$ alias distrobuilder="docker run -ti --rm --net=host --privileged -v $PWD:/build --tmpfs /var/cache:rw,exec,dev ghcr.io/f-bn/distrobuilder:edge"
+```
+
+Once distrobuilder is installed, you can build the image:
 
 * **Container image**
 
