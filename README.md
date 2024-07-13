@@ -12,15 +12,14 @@ The following images are known to work using these manifests, other distribution
 
 | Distribution   | Release   | Variants  | Container | Virtual machine |
 | :--------------| :---------| :---------| :---------| :---------------|
+| Ubuntu         | `noble`   | `default` | ✅        | ✅              |
 | Ubuntu         | `jammy`   | `default` | ✅        | ✅              |
 | Talos Linux    | -         | `default` | ❌        | ✅              |
 
-*Note: image compatibility with LXD is not guaranteed*
-
 #### Requirements
 
-* Incus >= 0.5
-* Distrobuilder >= 3.0
+* Incus >= 6.0
+* Distrobuilder >= 3.0 (`edge` version is recommended)
 * System dependencies
   - `qemu-img`
   - `debootstrap`
