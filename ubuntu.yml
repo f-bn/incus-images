@@ -1,7 +1,7 @@
 ---
 image:
   distribution: ubuntu
-  release: jammy
+  release: noble
   architecture: amd64
   name: "{{ image.distribution }}-{{ image.release }}-{{ image.variant }}-{{ image.serial }}"
   description: "Ubuntu {{ image.release }} ({{ image.variant }}-{{ image.serial }})"
@@ -137,6 +137,7 @@ actions:
       # Cleanup temporary shadow paths
       rm /etc/*-
 
+  # Source: https://github.com/lxc/lxc-ci/blob/main/images/ubuntu.yaml#L709
   - trigger: post-files
     action: |-
       #!/bin/sh
@@ -144,8 +145,9 @@ actions:
       TARGET="x86_64"
       update-grub
       grub-install --uefi-secure-boot --target="${TARGET}-efi" --no-nvram --removable
+      grub-install --uefi-secure-boot --target="${TARGET}-efi" --no-nvram
       update-grub  
-      sed -i "s#root=[^ ]*#root=/dev/sda2#g" /boot/grub/grub.cfg
+      sed -i "s#root=[^ ]*#root=${DISTROBUILDER_ROOT_UUID}#g" /boot/grub/grub.cfg
       # Re-generate initramfs
       update-initramfs -u -k all
     types:
