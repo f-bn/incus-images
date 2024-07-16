@@ -39,6 +39,7 @@ packages:
     - cloud-init
     - curl
     - diffutils
+    - file
     - fuse3
     - gnupg2
     - iputils-ping
