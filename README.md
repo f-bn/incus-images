@@ -36,14 +36,14 @@ Firstly, install `distrobuilder`:
 $ snap install distrobuilder --classic [--edge]
 ```
 
-If you don't want to use snap, I also have created an [OCI image](https://github.com/f-bn/containers-images/tree/main/distrobuilder) for running Distrobuilder inside a container (Docker or **rootful** Podman):
+If you don't want to use snap, I also have created an [OCI image](https://github.com/f-bn/containers-images/tree/main/distrobuilder) for running Distrobuilder builds inside a container (Docker or **rootful** Podman):
 
 ```shell
 $ docker pull ghcr.io/f-bn/distrobuilder:edge
 $ alias distrobuilder="docker run -ti --rm --net=host --privileged -v $PWD:/build --tmpfs /var/cache:rw,exec,dev ghcr.io/f-bn/distrobuilder:edge"
 ```
 
-*Note: above system packages requirements doesn't apply when using distrobuilder in a container as everything is bundled in the image*
+*Note: above system packages requirements doesn't apply when using distrobuilder in a container as everything is bundled into the image*
 
 Once distrobuilder is installed, you can build the image:
 
