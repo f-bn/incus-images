@@ -89,7 +89,7 @@ In order to build an Incus-compatible [Talos Linux](https://www.talos.dev/) imag
 
 ```shell
 $ ./bin/build-talos-image.sh
-* Downloading Talos Linux image (v1.6.5)...
+* Downloading Talos Linux image (1.8.1)...
 * Extracting image...
 * Convert image to QCOW2 format...
     (100.00/100%)
@@ -100,43 +100,45 @@ $ ./bin/build-talos-image.sh
 You can also specify the Talos Linux version (using GitHub tag):
 
 ```shell
-$ ./bin/build-talos-image.sh v1.7.0-alpha.0
+$ ./bin/build-talos-image.sh v1.9.0-alpha.0
 ```
 
-Once the build is done, you can find a `talos-<version>.tar.zst` archive that you can import into Incus:
+Once the build is done, you can find a `talos-<version>.tar.zst` archive in the `output/` directory that you can import into Incus:
 ```shell
-$ ls -lh
-total 78M
--rw-r--r-- 1 user group 1.1K Feb 22 12:49 LICENSE
--rw-r--r-- 1 user group 2.9K Feb 25 12:55 README.md
-drwxr-xr-x 2 user group 4.0K Feb 25 12:33 bin
-drwxr-xr-x 8 user group 4.0K Feb 22 12:49 config
--rw-r--r-- 1 user group  78M Feb 25 12:55 talos-v1.6.5.tar.zst
--rw-r--r-- 1 user group 6.0K Feb 22 13:00 ubuntu.yml
+$ ls -lh output/
+total 99M
+-rw-r--r-- 1 f-bn f-bn 99M Oct 21 15:50 talos-v1.8.1.tar.zst
 
-$ incus image import talos-v1.6.5.tar.zst --alias talos/1.6.5
-$ incus image info talos/1.6.5
+$ incus image import output/talos-v1.8.1.tar.zst --alias talos/1.8.1
+$ incus image info talos/1.8.1
 Fingerprint: <fingerpint>
-Size: 77.82MiB
+Size: 98.32MiB
 Architecture: x86_64
 Type: virtual-machine
 Public: no
 Timestamps:
-    Created: 2024/02/25 12:21 UTC
-    Uploaded: 2024/02/25 12:21 UTC
+    Created: 2024/10/21 01:51 UTC
+    Uploaded: 2024/10/21 01:51 UTC
     Expires: never
     Last used: 0001/01/01 00:00 UTC
 Properties:
-    description: Talos Linux 1.6.5
+    description: Talos Linux 1.8.1
     os: Talos Linux
-    release: 1.6.5
+    release: 1.8.1
 Aliases:
-    - talos/1.6.5
+    - talos/1.8.1
 Cached: no
 Auto update: disabled
 Profiles:
     - default
+$ incus launch talos/1.8.1 v1 --vm -c security.secureboot=false --console
+...
+EFI stub: Loaded initrd from LINUX_EFI_INITRD_MEDIA_GUID device path
+[    0.000000] Linux version 6.6.54-talos (@buildkitsandbox) (gcc (GCC) 13.3.0, GNU ld (GNU Binutils) 2.43.1) #1 SMP Mon Oct  7 18:53:44 UTC 2024
+[    0.000000] Command line: BOOT_IMAGE=/A/vmlinuz talos.platform=nocloud console=tty1 console=ttyS0 net.ifnames=0 init_on_alloc=1 slab_nomerge pti=on consoleblank=0 nvme_core.io_timeout=4294967295 printk.devkmsg=on ima_templat
+e=ima-ng ima_appraise=fix ima_hash=sha512
 ```
+
 
 ### References
 
